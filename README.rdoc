@@ -1,0 +1,38 @@
+= Detroit Rubyforge Tool
+
+
+== DESCRIPTION
+
+Rubyforge plugin for Detroit build system. The plugin handles
+publishing one's website and making releases.
+
+
+== ISSUES
+
+This plugin also has code for making news posts, but is in need
+of a fixing and soes not currently work.
+
+This plugin requires the *forge* gem which providss an HTTP interface
+to the rubyforge.org website. The forge gem really needs to be updated to
+use the newer REST API; or this plugin could be swtiched to use the
+*rubyforge* gem instead --the donwside to the later being that the
+rubyforge gem works pre-user and puts confiuration file in ones home
+directory, rather than per-project, but it could still do the job.
+
+Of course none of this has been done becuse Rubyforge has feel out
+favor and GitHub is now the *goto* hosting service for Ruby project.
+
+
+== INSTALL
+
+  $ gem install detroit-rubyforge
+
+
+== COPYRIGHT
+
+Copyright (c) 2011 Thomas Sawyer
+
+GPL v.3 license
+
+See COPYING.rdoc and GPL3.txt file for details.
+
