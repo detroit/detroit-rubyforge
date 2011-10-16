@@ -23,33 +23,14 @@ module Detroit
   #++
   class Rubyforge < Tool
 
-    #cycle :main, :release do
-    #  release
-    #  publish
+    #available do |project|
+    #  begin
+    #    require 'forge'
+    #    true
+    #  rescue LoadError
+    #    false
+    #  end
     #end
-
-    #cycle :main, :promote do
-    #  announce
-    #end
-
-    #cycle :site, :release do
-    #  publish
-    #end
-
-    # Rubyforge will be available automatically if the POM repository
-    # entry indicates the use of Rubyforge.
-    autorun do |project|
-      /rubyforge.org/ =~ project.metadata.repository
-    end
-
-    available do |project|
-      begin
-        require 'forge'
-        true
-      rescue LoadError
-        false
-      end
-    end
 
     HOME    = ENV["HOME"] || ENV["HOMEPATH"] || File.expand_path("~")
     REPORT  = /<h\d><span style="color:red">(.*?)<\/span><\/h\d>/
@@ -123,67 +104,26 @@ module Detroit
     # Used to specify any additional rsync options.
     attr_accessor :site_rsync
 
-    private
 
-      def initialize_defaults
-        @unixname = metadata.collection || metadata.suite
+    #  A S S E M B L Y  S T A T I O N S
 
-        @username = ENV['RUBYFORGE_USERNAME']
-        @password = ENV['RUBYFORGE_PASSWORD']
+    # Attach release method to release assembly station.
+    def station_release
+      release
+    end
 
-        @package  = metadata.name
-        @version  = metadata.version
+    # Attach publish method to publish assembly station.
+    def station_publish
+      publish
+    end
 
-        @release_template = "%s"
+    # Attach promote method to promote assembly station.
+    def station_promote
+      promote
+    end
 
-        #@changelog = Dir.glob('{history,changelog,changes}{,.txt}', File::FNM_CASEFOLD).first
 
-        @notelog   = Dir.glob('{release,news,notes,notice}{,.txt}', File::FNM_CASEFOLD).first
-        @changelog = nil
-
-        @site_map  = metadata.sitemap
-
-        #options = {}
-        #options[:unixname] = metadata.project
-        #options[:version]  = metadata.version
-        #options[:username] = ENV['RUBYFORGE_USERNAME']
-        #options[:password] = ENV['RUBYFORGE_PASSWORD']
-
-        #options[:dryrun]   = dryrun?
-        #options[:quiet]    = quiet?
-        #options[:verbose]  = verbose?
-
-        #@rubyforge = Support::Rubyforge.new(metadata.name, options)
-      end
-
-      #
-      def initialize_requires
-        require 'forge'
-      end
-
-      #
-      def rubyforge
-        @rubyforge ||= (
-          options = {}
-          options[:unixname] = unixname
-          options[:username] = username
-          options[:password] = password
-          options[:group_id] = group_id
-
-          options[:package]  = package
-          options[:version]  = version
-
-          options[:dryrun]   = dryrun?
-          options[:quiet]    = quiet?
-          options[:verbose]  = verbose?
-
-          options[:metadata] = metadata
-
-          Forge::Rubyforge.new(options)
-        )
-      end
-
-    public
+    #  S E R V I C E  M E T H O D S
 
     #
     #def release
@@ -356,6 +296,66 @@ module Detroit
     def announcement
       project.announcement
     end
+
+  private
+
+      def initialize_defaults
+        @unixname = metadata.collection || metadata.suite
+
+        @username = ENV['RUBYFORGE_USERNAME']
+        @password = ENV['RUBYFORGE_PASSWORD']
+
+        @package  = metadata.name
+        @version  = metadata.version
+
+        @release_template = "%s"
+
+        #@changelog = Dir.glob('{history,changelog,changes}{,.txt}', File::FNM_CASEFOLD).first
+
+        @notelog   = Dir.glob('{release,news,notes,notice}{,.txt}', File::FNM_CASEFOLD).first
+        @changelog = nil
+
+        @site_map  = metadata.sitemap
+
+        #options = {}
+        #options[:unixname] = metadata.project
+        #options[:version]  = metadata.version
+        #options[:username] = ENV['RUBYFORGE_USERNAME']
+        #options[:password] = ENV['RUBYFORGE_PASSWORD']
+
+        #options[:dryrun]   = dryrun?
+        #options[:quiet]    = quiet?
+        #options[:verbose]  = verbose?
+
+        #@rubyforge = Support::Rubyforge.new(metadata.name, options)
+      end
+
+      #
+      def initialize_requires
+        require 'forge'
+      end
+
+      #
+      def rubyforge
+        @rubyforge ||= (
+          options = {}
+          options[:unixname] = unixname
+          options[:username] = username
+          options[:password] = password
+          options[:group_id] = group_id
+
+          options[:package]  = package
+          options[:version]  = version
+
+          options[:dryrun]   = dryrun?
+          options[:quiet]    = quiet?
+          options[:verbose]  = verbose?
+
+          options[:metadata] = metadata
+
+          Forge::Rubyforge.new(options)
+        )
+      end
 
   end
 
