@@ -1,3 +1,5 @@
+require 'detroit/tool'
+
 module Detroit
 
   # Convenience method for creating Rubyfoge tool instance.
