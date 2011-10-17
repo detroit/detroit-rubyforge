@@ -7,10 +7,10 @@
 \fBdetroit\-rubyforge\fR \- utilize rubyforge services with detroit
 .
 .SH "DESCRIPTION"
-The RubyForge plug\-in for Detroit provides services tied to your project\'s rubyforge\.org account\. Presently it only supports website publishing and uploading packages\. This plugin uses the \fBforge\fR gem and not more common \fBrubyforge\fR gem, and \fBrsync\fR to upload website files\.
+The RubyForge plug\-in for Detroit provides services tied to your project\'s rubyforge\.org account\. Presently it only supports website publishing and uploading packages\. This plugin uses the \fBforge\fR gem, not the more common \fBrubyforge\fR gem, and \fBrsync\fR to upload website files\.
 .
 .P
-NOTE: RubyForge is fairly passe since the rise of GitHub, so this plug\-in is not being actively maintained any loger\. If someone is a die\-hard RubyForge supporter please considering adopting this project, as you are probably one of very few, if not the only one who will be using it\.
+NOTE: RubyForge is fairly passe since the rise of GitHub, so this plug\-in is not being actively maintained any loger\. If someone is a die\-hard RubyForge supporter please considering adopting this project, as you are probably one of very few, if not the only one, who will be using it\.
 .
 .SH "OPTIONS"
 The following options can be used in Detroit assembly files for defining a RubyForge service\.
@@ -102,6 +102,17 @@ $ ln \-s doc site/doc
 .
 .P
 Soft\-links will be transfered as if the real file present\. So a more complex \fBsitemap\fR is really only needed when more specific selections or complex globs are needed\.
+.
+.SH "RESOURCES"
+For more information:
+.
+.IP "\(bu" 4
+API Documentation \fIhttp://rubydoc\.info/gems/detroit\-rubyforge\fR
+.
+.IP "\(bu" 4
+Development Site \fIhttp://github\.com/detroit/detroit\-rubyforge\fR
+.
+.IP "" 0
 .
 .SH "COPYRIGHT"
 Copyright (c) 2010 Thomas Sawyer, Rubyworks
