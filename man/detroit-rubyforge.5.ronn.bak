@@ -5,12 +5,12 @@ detroit-rubyforge(5) - utilize rubyforge services with detroit
 
 The RubyForge plug-in for Detroit provides services tied to your
 project's rubyforge.org account. Presently it only supports
-website publishing and uploading packages. This plug-in uses the
+website publishing and uploading packages. This plugin uses the
 `forge` gem, not the more common `rubyforge` gem, and `rsync`
 to upload website files.
 
 NOTE: RubyForge is fairly passe since the rise of GitHub, so 
-this plug-in is not being actively maintained any longer. If
+this plug-in is not being actively maintained any loger. If
 someone is a die-hard RubyForge supporter please considering
 adopting this project, as you are probably one of very few,
 if not the only one, who will be using it. 
@@ -45,7 +45,7 @@ for defining a RubyForge service.
 
   * `sitemap` - List of directories and files to transfer.
     If a single directory entry is given then the contents
-    of that directory will be transferred. Defaults to `site`,
+    of that directory will be transfered. Defaults to `site`,
     `website` or `doc`.
   
   * `site_delete` - Should the site be published wholesale, removing
@@ -54,16 +54,16 @@ for defining a RubyForge service.
 
   * `site_rsync` - Used to specify any additional rsync options.
 
-When using this plug-in, your RubyForge password will be gathered from
+When using thi plug-in, your RubyForge passwrd will be gathered from
 the `RUBYFORGE_PASSWORD` environment variable. If this is not present
 then it will be prompted for on the command line.
 
 
 ## EXAMPLES
 
-If you keep your website in a project sub-directory called either
+If you keep your website in a project subdirectory called either
 `site`, `web`, `website` or `www`, and failing those, `doc` or `docs`,
-then the defaults settings are likely sufficient. Just provide a
+then the defaults settings are likely sufficiant. Just provide a
 unixname.
 
     rubyforge:
@@ -85,7 +85,7 @@ instead.
 
     $ ln -s doc site/doc
 
-Soft-links will be transferred as if the real file present. So a more complex
+Soft-links will be transfered as if the real file present. So a more complex
 `sitemap` is really only needed when more specific selections or complex
 globs are needed.
 
