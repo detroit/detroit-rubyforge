@@ -1,0 +1,113 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "DETROIT\-RUBYFORGE" "5" "October 2011" "" ""
+.
+.SH "NAME"
+\fBdetroit\-rubyforge\fR \- utilize rubyforge services with detroit
+.
+.SH "DESCRIPTION"
+The RubyForge plug\-in for Detroit provides services tied to your project\'s rubyforge\.org account\. Presently it only supports website publishing and uploading packages\. This plugin uses the \fBforge\fR gem and not more common \fBrubyforge\fR gem, and \fBrsync\fR to upload website files\.
+.
+.P
+NOTE: RubyForge is fairly passe since the rise of GitHub, so this plug\-in is not being actively maintained any loger\. If someone is a die\-hard RubyForge supporter please considering adopting this project, as you are probably one of very few, if not the only one who will be using it\.
+.
+.SH "OPTIONS"
+The following options can be used in Detroit assembly files for defining a RubyForge service\.
+.
+.IP "\(bu" 4
+\fBunixname\fR \- The project\'s unixname\.
+.
+.IP "\(bu" 4
+\fBgroupid\fR \- The Project\'s group id number\.
+.
+.IP "\(bu" 4
+\fBusername\fR \- Your Rubyforge username, granting access to the project\. Default comes from \fBENV[\'RUBYFORGE_USERNAME\']\fR\.
+.
+.IP "\(bu" 4
+\fBpackage\fR \- The package name\. Deafult is taken from project metadata\.
+.
+.IP "\(bu" 4
+\fBversion\fR \- Version to release\. Default is taken from project metadata\.
+.
+.IP "\(bu" 4
+\fBnotelog\fR \- File that holds the current release notes\.
+.
+.IP "\(bu" 4
+\fBchangelog\fR \- File that hold the current change log\. If not provided then the changelog will# taken from the bottom of the notelog split on a \'\-\-\-\' or \'####\' marker\.
+.
+.IP "\(bu" 4
+\fBrelease\-template\fR \- The release name, using an \fB%s\fR for inserting the version number, e\.g\. \fBmyapp\-%s\fR\.
+.
+.IP "\(bu" 4
+\fBprivate_release\fR \- Is this a private release? Default it \fBfalse\fR\.
+.
+.IP "\(bu" 4
+\fBsitemap\fR \- List of directories and files to transfer\. If a single directory entry is given then the contents of that directory will be transfered\. Defaults to \fBsite\fR, \fBwebsite\fR or \fBdoc\fR\.
+.
+.IP "\(bu" 4
+\fBsite_delete\fR \- Should the site be published wholesale, removing any other content present at the upload destination? Note, this is the same as setting +site_rsync+ to \'\-\-del\-after\'\.
+.
+.IP "\(bu" 4
+\fBsite_rsync\fR \- Used to specify any additional rsync options\.
+.
+.IP "" 0
+.
+.P
+When using thi plug\-in, your RubyForge passwrd will be gathered from the \fBRUBYFORGE_PASSWORD\fR environment variable\. If this is not present then it will be prompted for on the command line\.
+.
+.SH "EXAMPLES"
+If you keep your website in a project subdirectory called either \fBsite\fR, \fBweb\fR, \fBwebsite\fR or \fBwww\fR, and failing those, \fBdoc\fR or \fBdocs\fR, then the defaults settings are likely sufficiant\. Just provide a unixname\.
+.
+.IP "" 4
+.
+.nf
+
+rubyforge:
+  unixname: myapp
+.
+.fi
+.
+.IP "" 0
+.
+.P
+If the files to copy to the website are more entailed, use a mapping of source to destination\. For example, if we want to copy all the files in \fBsite/\fR to gh\-pages, but also all the files in \fBdoc/\fR to a directory called \fBdoc\fR we could use:
+.
+.IP "" 4
+.
+.nf
+
+rubyforge:
+  unixname: myapp
+  sitemap:
+    site: \.
+    doc: doc
+.
+.fi
+.
+.IP "" 0
+.
+.P
+However, this isn\'t usually necessary, since a soft link could be used instead\.
+.
+.IP "" 4
+.
+.nf
+
+$ ln \-s doc site/doc
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Soft\-links will be transfered as if the real file present\. So a more complex \fBsitemap\fR is really only needed when more specific selections or complex globs are needed\.
+.
+.SH "COPYRIGHT"
+Copyright (c) 2010 Thomas Sawyer, Rubyworks
+.
+.P
+Detroit GitHub is distributable in accordance with the GPLv3 license\.
+.
+.SH "SEE ALSO"
+detroit(1), forge(1), rubyforge(1)

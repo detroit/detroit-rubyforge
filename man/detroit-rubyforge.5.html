@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>detroit-rubyforge(5) - utilize rubyforge services with detroit</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#COPYRIGHT">COPYRIGHT</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+    </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>detroit-rubyforge(5)</li>
+    <li class='tc'></li>
+    <li class='tr'>detroit-rubyforge(5)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>detroit-rubyforge</code> - <span class="man-whatis">utilize rubyforge services with detroit</span>
+</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>The RubyForge plug-in for Detroit provides services tied to your
+project's rubyforge.org account. Presently it only supports
+website publishing and uploading packages. This plugin uses the
+<code>forge</code> gem and not more common <code>rubyforge</code> gem, and <code>rsync</code>
+to upload website files.</p>
+
+<p>NOTE: RubyForge is fairly passe since the rise of GitHub, so
+this plug-in is not being actively maintained any loger. If
+someone is a die-hard RubyForge supporter please considering
+adopting this project, as you are probably one of very few,
+if not the only one who will be using it.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>The following options can be used in Detroit assembly files
+for defining a RubyForge service.</p>
+
+<ul>
+<li><p><code>unixname</code> - The project's unixname.</p></li>
+<li><p><code>groupid</code> - The Project's group id number.</p></li>
+<li><p><code>username</code> - Your Rubyforge username, granting access to the project.
+ Default comes from <code>ENV['RUBYFORGE_USERNAME']</code>.</p></li>
+<li><p><code>package</code> - The package name. Deafult is taken from project metadata.</p></li>
+<li><p><code>version</code> - Version to release. Default is taken from project metadata.</p></li>
+<li><p><code>notelog</code> - File that holds the current release notes.</p></li>
+<li><p><code>changelog</code> - File that hold the current change log. If not provided then
+ the changelog will# taken from the bottom of the notelog split on a '---'
+ or '####' marker.</p></li>
+<li><p><code>release-template</code> - The release name, using an <code>%s</code> for inserting the
+ version number, e.g. <code>myapp-%s</code>.</p></li>
+<li><p><code>private_release</code> - Is this a private release? Default it <code>false</code>.</p></li>
+<li><p><code>sitemap</code> - List of directories and files to transfer.
+If a single directory entry is given then the contents
+of that directory will be transfered. Defaults to <code>site</code>,
+<code>website</code> or <code>doc</code>.</p></li>
+<li><p><code>site_delete</code> - Should the site be published wholesale, removing
+ any other content present at the upload destination?
+ Note, this is the same as setting +site_rsync+ to '--del-after'.</p></li>
+<li><p><code>site_rsync</code> - Used to specify any additional rsync options.</p></li>
+</ul>
+
+
+<p>When using thi plug-in, your RubyForge passwrd will be gathered from
+the <code>RUBYFORGE_PASSWORD</code> environment variable. If this is not present
+then it will be prompted for on the command line.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p>If you keep your website in a project subdirectory called either
+<code>site</code>, <code>web</code>, <code>website</code> or <code>www</code>, and failing those, <code>doc</code> or <code>docs</code>,
+then the defaults settings are likely sufficiant. Just provide a
+unixname.</p>
+
+<pre><code>rubyforge:
+  unixname: myapp
+</code></pre>
+
+<p>If the files to copy to the website are more entailed, use a mapping of
+source to destination. For example, if we want to copy all the files in
+<code>site/</code> to gh-pages, but also all the files in <code>doc/</code> to a directory
+called <code>doc</code> we could use:</p>
+
+<pre><code>rubyforge:
+  unixname: myapp
+  sitemap:
+    site: .
+    doc: doc
+</code></pre>
+
+<p>However, this isn't usually necessary, since a soft link could be used
+instead.</p>
+
+<pre><code>$ ln -s doc site/doc
+</code></pre>
+
+<p>Soft-links will be transfered as if the real file present. So a more complex
+<code>sitemap</code> is really only needed when more specific selections or complex
+globs are needed.</p>
+
+<h2 id="COPYRIGHT">COPYRIGHT</h2>
+
+<p>Copyright (c) 2010 Thomas Sawyer, Rubyworks</p>
+
+<p>Detroit GitHub is distributable in accordance with the GPLv3 license.</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p><span class="man-ref">detroit<span class="s">(1)</span></span>, <span class="man-ref">forge<span class="s">(1)</span></span>, <span class="man-ref">rubyforge<span class="s">(1)</span></span></p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>October 2011</li>
+    <li class='tr'>detroit-rubyforge(5)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

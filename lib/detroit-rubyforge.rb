@@ -301,63 +301,69 @@ module Detroit
 
   private
 
-      def initialize_defaults
-        @unixname = metadata.collection || metadata.suite
+    def initialize_defaults
+      @unixname = metadata.collection || metadata.suite
 
-        @username = ENV['RUBYFORGE_USERNAME']
-        @password = ENV['RUBYFORGE_PASSWORD']
+      @username = ENV['RUBYFORGE_USERNAME']
+      @password = ENV['RUBYFORGE_PASSWORD']
 
-        @package  = metadata.name
-        @version  = metadata.version
+      @package  = metadata.name
+      @version  = metadata.version
 
-        @release_template = "%s"
+      @release_template = "%s"
 
-        #@changelog = Dir.glob('{history,changelog,changes}{,.txt}', File::FNM_CASEFOLD).first
+      #@changelog = Dir.glob('{history,changelog,changes}{,.txt}', File::FNM_CASEFOLD).first
 
-        @notelog   = Dir.glob('{release,news,notes,notice}{,.txt}', File::FNM_CASEFOLD).first
-        @changelog = nil
+      @notelog   = Dir.glob('{release,news,notes,notice}{,.txt}', File::FNM_CASEFOLD).first
+      @changelog = nil
 
-        @site_map  = metadata.sitemap
+      @site_map  = metadata.sitemap
 
-        #options = {}
-        #options[:unixname] = metadata.project
-        #options[:version]  = metadata.version
-        #options[:username] = ENV['RUBYFORGE_USERNAME']
-        #options[:password] = ENV['RUBYFORGE_PASSWORD']
+      #options = {}
+      #options[:unixname] = metadata.project
+      #options[:version]  = metadata.version
+      #options[:username] = ENV['RUBYFORGE_USERNAME']
+      #options[:password] = ENV['RUBYFORGE_PASSWORD']
 
-        #options[:dryrun]   = dryrun?
-        #options[:quiet]    = quiet?
-        #options[:verbose]  = verbose?
+      #options[:dryrun]   = dryrun?
+      #options[:quiet]    = quiet?
+      #options[:verbose]  = verbose?
 
-        #@rubyforge = Support::Rubyforge.new(metadata.name, options)
-      end
+      #@rubyforge = Support::Rubyforge.new(metadata.name, options)
+    end
 
-      #
-      def initialize_requires
-        require 'forge'
-      end
+    #
+    def initialize_requires
+      require 'forge'
+    end
 
-      #
-      def rubyforge
-        @rubyforge ||= (
-          options = {}
-          options[:unixname] = unixname
-          options[:username] = username
-          options[:password] = password
-          options[:group_id] = group_id
+    #
+    def rubyforge
+      @rubyforge ||= (
+        options = {}
+        options[:unixname] = unixname
+        options[:username] = username
+        options[:password] = password
+        options[:group_id] = group_id
 
-          options[:package]  = package
-          options[:version]  = version
+        options[:package]  = package
+        options[:version]  = version
 
-          options[:dryrun]   = dryrun?
-          options[:quiet]    = quiet?
-          options[:verbose]  = verbose?
+        options[:dryrun]   = dryrun?
+        options[:quiet]    = quiet?
+        options[:verbose]  = verbose?
 
-          options[:metadata] = metadata
+        options[:metadata] = metadata
 
-          Forge::Rubyforge.new(options)
-        )
-      end
+        Forge::Rubyforge.new(options)
+      )
+    end
+
+  public
+
+    def self.man_page
+      File.dirname(__FILE__)+'/../man/detroit-rubyforge.5'
+    end
 
   end
 
