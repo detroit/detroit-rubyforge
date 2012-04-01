@@ -106,24 +106,25 @@ module Detroit
     # Used to specify any additional rsync options.
     attr_accessor :site_rsync
 
+    #  A S S E M B L Y  M E T H O D S
 
-    #  A S S E M B L Y  S T A T I O N S
-
-    # Attach release method to release assembly station.
-    def station_release
-      release
+    # Attaches to release, publish and promote stations.
+    def assemble?(station, options={})
+      case station
+      when :release then true
+      when :publish then true
+      when :promote then true
+      end
     end
 
-    # Attach publish method to publish assembly station.
-    def station_publish
-      publish
+    # Attach to release, publish and promote stations.
+    def assemble(station)
+      case station
+      when :release then release
+      when :publish then publish
+      when :promote then promote
+      end
     end
-
-    # Attach promote method to promote assembly station.
-    def station_promote
-      promote
-    end
-
 
     #  S E R V I C E  M E T H O D S
 
