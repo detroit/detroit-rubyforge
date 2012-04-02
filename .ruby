@@ -26,7 +26,7 @@ revision: 0
 created: '2011-10-16'
 summary: RubyForge plugin for Detroit
 title: Detroit RubyForge
-version: 0.1.0
+version: 0.2.0
 name: detroit-rubyforge
 suite: detroit
 description: RubyForge plugin for Detroit build system. This plugin will upload a
